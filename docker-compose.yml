@@ -1,4 +1,12 @@
 version: '3'
 services: 
-    crawler:
-        image: docker pull python:3.7.9-alpine
+    # crawler:
+    #     image: docker pull python:3.7.9-alpine
+    db:
+        image: postgres
+        env_file: 
+            - .env
+        volumes: 
+            - ./postgres_data:/var/lib/postgresql/data
+        ports: 
+            - 5432:5432

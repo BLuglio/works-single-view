@@ -1,3 +1,4 @@
 .vscode
-dev
+venv
 __pycache__
+postgres_data
