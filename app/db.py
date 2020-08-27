@@ -9,8 +9,12 @@ class DB():
         except Exception as e:
             print(e)
 
-    def executeQuery(self, query):
+    def execute_query(self, query):
         self.cur.execute(query)
+        self.close()
+    
+    def execute_multiple_queries(self, queries):
+        self.cur.execute("BEGIN;\n" + queries + "\nCOMMIT;")
         self.close()
     
     def close(self):
