@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from db import DB
 import config
+import logging
 
 class Processor():
 
@@ -33,7 +34,7 @@ class Processor():
             return self.extract_contributors(data, indices, contributors_list) 
     
     def store(self, iswc, contributors_list, title):
-        queries = ''.join(f"INSERT INTO musical_work (iswc, contributor, title) VALUES ('{iswc}', '{c}', '{title}') ON CONFLICT DO NOTHING;" for c in contributors_list)
+        queries = ''.join(f"INSERT INTO works_metadata (iswc, contributor, title) VALUES ('{iswc}', '{c}', '{title}') ON CONFLICT DO NOTHING;" for c in contributors_list)
         DB(host=config.DB_HOST, port=config.DB_PORT, database=config.DB_NAME, user=config.DB_USER, password=config.DB_PASSWORD).execute_multiple_queries(queries)
     
     def process(self, filepath):
@@ -52,4 +53,6 @@ class Processor():
             if(pd.isnull(title)):
                 title = ''
             contributors = self.extract_contributors(data, indices, [])
+            logging.basicConfig(level=logging.DEBUG)
+            logging.info('Storing ISWC: %s', iswc)
             self.store(iswc, contributors, title)
