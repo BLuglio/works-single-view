@@ -23,9 +23,13 @@ class Processor():
         if len(indices) == 0:
             single_contributors = set()
             for c in contributors_list:
-                _list = c.split("|")
-                for elem in _list:
-                    single_contributors.add(elem)
+                if(pd.isnull(c)):
+                    single_contributors.add('')
+                    break
+                else:
+                    _list = c.split("|")
+                    for elem in _list:
+                        single_contributors.add(elem)
             return list(single_contributors)
         else:
             idx = indices.pop()
@@ -60,6 +64,5 @@ class Processor():
                 title = ''
             contributors = self.extract_contributors(data, indices, [])
             queries += f"INSERT INTO works_single_view (iswc, contributors, title) VALUES ('{iswc}', ARRAY{contributors}, '{title}') ON CONFLICT ON CONSTRAINT iswc DO UPDATE SET contributors=ARRAY{contributors}, modified_at=now();\n"
-            # self.store(iswc, contributors, title)
         logging.info("Storing results")
         self.store(queries)
