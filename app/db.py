@@ -1,10 +1,10 @@
 import psycopg2
+import config
 
 class DB():
-    def __init__(self, host, port, database, user, password):
+    def __init__(self):
         try:
-            self.conn = psycopg2.connect(host=host, port=port, 
-                dbname=database, user=user, password=password)
+            self.conn = psycopg2.connect(host=config.DB_HOST, port=config.DB_PORT, database=config.DB_NAME, user=config.DB_USER, password=config.DB_PASSWORD)
             self.cur = self.conn.cursor()
         except Exception as e:
             print(e)
