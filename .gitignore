@@ -2,4 +2,4 @@
 venv
 __pycache__
 postgres_data
-.csv
+*.csv
