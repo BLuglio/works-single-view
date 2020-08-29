@@ -69,10 +69,14 @@ python3 main.py
 ## Answers to questions
 
 1) <b>Describe briefly the matching and reconciling method chosen.</b>
+The solution is based on the fact that I considered the iswc code the most important piece of information contained inside the csv file, since it is an international standard and identifies each musical work uniquely.
 
-    1) The csv file is read with the pandas library, extracting only the columns 'iswc', 'contributors' and 'title'.
-    2)
-    3)
+    1) The csv file is read with the pandas library, extracting the columns containing the 'iswc', 'contributors' and 'title' values into the list `data`; this list contains all values as they are in the original csv file
+    2) the iswc without duplicates and null values are stored in the `iswcs` list
+    3) for each iswc inside the `iswcs` list, the following steps are executed:
+        1) the list containing the indices of all its occurrences inside the `data` list is obtained
+        2) using the list computed at 1), all the related contributors are extracted from `data` and added to a set, in order to eliminate duplicates. Such a set is then returned as a list
+        3) 
     4)
 <br>
 
@@ -84,5 +88,6 @@ python3 main.py
     2) instead of placing the file containing the metadata on a local folder, the provider would upload it on such a service (let's call it shared folder) following a given time schedule, for example each day at the same hour. 
     3) I would modify the observation part of my solution, changing from a file system based polling to a set of authorized API requests to the shared folder; in particular, the software would: 
         1) list all csv files contained in the shared folder
-        2) download and process only the files created in the last 24 hours 
-    4) I would sync the activation of the metadata ingestion according to the time schedule set by the provider; moreover, it would be added as a configurable parameter inside the settings as well as the parameters necessary to communicate with the shared folder 
+        2) download and process only the files created in the last 24 hours
+    The parameters necessary to access the shared folder (for example all the endpoints and the secrets) would be added to the settings file inside the application
+    4) I would sync the activation of the metadata ingestion according to the time schedule set by the provider; the way in which I would realize it would be different if the software is run inside a serverless environment, like AWS Lamba, or inside a dedicated server
