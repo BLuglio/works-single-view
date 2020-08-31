@@ -81,14 +81,17 @@ DB_PASSWORD = 'postgres'
 
 ### Database
 
-- Option 1: Run the postgres db as a Docker container using postgres_data as data directory; here I provide you a reference compose file:
+- Option 1: Run the postgres db as a Docker container mounting the postgres_data as volume; here I provide you a reference compose file:
 ```
 version: '3'
 services:
     db:
         image: postgres
-        env_file: 
-            - .env
+        environment: 
+            - PGDATA=/var/lib/postgresql/data/pgdata
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_USER=postgres
+            - POSTGRES_DB=bmat
         volumes: 
             - ./postgres_data:/var/lib/postgresql/data
         ports: 
