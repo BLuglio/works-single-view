@@ -16,7 +16,7 @@ Once started, the software:
 1) processes every csv file already inside the data directory
 2) waits for new csv files created inside the same directory
 
-Further details regarding the file processing are provided in the answers section. To start the matching and reconciling activity just drag and drop the appropriate csv metadata file inside the data directory; here an example of the workflow (the database shown is not the final one but a temporary version in which all the contributors were stored as single records):
+Further details regarding the file processing are provided in the answers section. To start the matching and reconciling activity just drag and drop the appropriate csv metadata file inside the data directory; here an example of the workflow:
 
 ![Works Single View Demo](demo/demo.gif)
 
