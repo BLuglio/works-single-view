@@ -3,3 +3,5 @@ venv
 __pycache__
 postgres_data
 *.csv
+docker-compose.yml
+.env
