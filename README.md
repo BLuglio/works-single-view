@@ -80,28 +80,11 @@ DB_PASSWORD = 'postgres'
 `src_path` is the folder used by the watcher to register new events, i.e the folder in which the csv files are dropped. The other variables are used to connect to the database.
 
 ### Database
-
-- Option 1: Run the postgres db as a Docker container mounting the postgres_data as volume; here I provide you a reference compose file:
-```
-version: '3'
-services:
-    db:
-        image: postgres
-        environment: 
-            - PGDATA=/var/lib/postgresql/data/pgdata
-            - POSTGRES_PASSWORD=postgres
-            - POSTGRES_USER=postgres
-            - POSTGRES_DB=bmat
-        volumes: 
-            - ./postgres_data:/var/lib/postgresql/data
-        ports: 
-            - 5432:5432
-```
-- Option 2: Work on your own db; here I provide the SQL instruction to create the table used by the software
+Here I provide the SQL instruction to create the table works_single_view used by the software; use it in the SQL tool in pgAdmin or as a query statement in pgsql:
 ``` 
 CREATE TABLE public.works_single_view
 (
-    id bigint NOT NULL DEFAULT nextval('works_single_view_id_seq'::regclass),
+    id serial,
     iswc character varying(20) COLLATE pg_catalog."default",
     contributors text[] COLLATE pg_catalog."default",
     title text COLLATE pg_catalog."default",
